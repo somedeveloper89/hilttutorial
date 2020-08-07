@@ -1,5 +1,7 @@
 package com.kabms.hilttutorial
 
+import com.kabms.hilttutorial.hilt.AuthInterceptorOkHttpClient
+import okhttp3.OkHttpClient
 import javax.inject.Inject
 
 /**
@@ -19,7 +21,9 @@ import javax.inject.Inject
  *  and their dependencies.
  */
 class SessionManagerImpl @Inject constructor(
-    private val service: SessionService
+    private val service: SessionService,
+    // As a dependency of a constructor-injected class with multiple definitions.
+    @AuthInterceptorOkHttpClient private val okHttpClient: OkHttpClient
 ) : SessionManager {
 
     init {

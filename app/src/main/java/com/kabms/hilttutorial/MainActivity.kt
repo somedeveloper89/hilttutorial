@@ -1,7 +1,9 @@
 package com.kabms.hilttutorial
 
 import androidx.appcompat.app.AppCompatActivity
+import com.kabms.hilttutorial.hilt.AuthInterceptorOkHttpClient
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.OkHttpClient
 import javax.inject.Inject
 
 /**
@@ -31,5 +33,7 @@ class MainActivity : AppCompatActivity() {
     // Note: Fields injected by Hilt cannot be private. Attempting to inject a private field with Hilt results in a compilation error.
     @Inject lateinit var sessionManager: SessionManagerImpl
 
-
+    // Field injection when duplicate definitions.
+    @AuthInterceptorOkHttpClient
+    @Inject lateinit var okHttpClient: OkHttpClient
 }

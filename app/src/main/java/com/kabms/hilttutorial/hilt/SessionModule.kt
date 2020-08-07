@@ -3,11 +3,13 @@ package com.kabms.hilttutorial.hilt
 import com.kabms.hilttutorial.SessionManager
 import com.kabms.hilttutorial.SessionManagerImpl
 import com.kabms.hilttutorial.SessionService
+import com.kabms.hilttutorial.SessionService2
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 
 /**
@@ -65,4 +67,20 @@ abstract class SessionModule {
             .build()
             .create(SessionService::class.java)
     }
+
+    /**
+     * You can inject the specific type that you need by annotating the field
+     * or parameter with the corresponding qualifier
+     */
+    @Provides
+    fun provideSessionService2(
+        @AuthInterceptorOkHttpClient okHttpClient: OkHttpClient
+    ): SessionService2 {
+        return Retrofit.Builder()
+            .baseUrl("https://example.com")
+            .client(okHttpClient)
+            .build()
+            .create(SessionService2::class.java)
+    }
+
 }
